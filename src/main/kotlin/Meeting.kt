@@ -1,14 +1,17 @@
 package com.rsk
 
-import java.lang.IllegalArgumentException
 
-class Meeting {
+
+open class Meeting(val meetingName: String,open val location : Location = Location()) {
+
+
     internal val logger = Logger()
 
-    var meetingName : String =""
+    open val locationName = ""
+
     fun addParticipants(participant: Participant){
         if(verifyParticipant(participant)){
-            println("Succesfully Added")
+            println("Successfully Added")
         }
         println("Added ${participant.participantName}")
     }
@@ -19,26 +22,33 @@ class Meeting {
         return true
     }
 
-    protected fun verifyMeeting(){
+    protected open fun verifyMeeting(){
 
     }
 
 
-}
-class Participant{
-    var name  : Name = Name()
-    var email = ""
 
-    val participantName
-    get() = name.name
-    val cannonicalEmail
-        get() = email.toUpperCase()
+
 }
 
-class Name {
-    var name : String  = ""
-    set(value) {
-        if(value.isNullOrBlank()) throw  IllegalArgumentException()
-        field = value
+class PersonalReview(meetingName: String,
+                     val employee : Participant,
+                     reviewers : List<Participant>,
+                     override val location: Room)
+    : Meeting(meetingName){
+
+    override val locationName: String
+        get() = super.locationName
+
+    fun closeReview(){
+        println("Review Ended")
+        verifyMeeting()
+    }
+
+    override fun verifyMeeting() {
+        println("Personal Review Verify Metting")
+        super.verifyMeeting()
     }
 }
+
+
