@@ -1,11 +1,11 @@
 package com.rsk
 
+import java.nio.file.Paths
 
 
-open class Meeting(val meetingName: String,open val location : Location = Location()) {
+open class Meeting(val meetingName: String,open val location : Location ,val logger: Logger) {
 
 
-    internal val logger = Logger()
 
     open val locationName = ""
 
@@ -34,8 +34,8 @@ open class Meeting(val meetingName: String,open val location : Location = Locati
 class PersonalReview(meetingName: String,
                      val employee : Participant,
                      reviewers : List<Participant>,
-                     override val location: Room)
-    : Meeting(meetingName){
+                     override val location: Room,logger: Logger)
+    : Meeting(meetingName,location,logger){
 
     override val locationName: String
         get() = super.locationName
